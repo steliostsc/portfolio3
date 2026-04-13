@@ -3,37 +3,37 @@
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
+const updateThemeColor = (theme: "dark" | "light") => {
+  document.querySelectorAll('meta[name="theme-color"]').forEach((el) => el.remove());
+  const meta = document.createElement("meta");
+  meta.name = "theme-color";
+  meta.content = theme === "dark" ? "#050507" : "#3676e4";
+  document.head.appendChild(meta);
+};
+
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
-    if (stored === "dark") {
-      document.documentElement.setAttribute("data-theme", "dark");
-      setIsDark(true);
-    } else {
-      document.documentElement.setAttribute("data-theme", "light");
-      setIsDark(false);
-    }
+    const theme =
+      stored === "dark" || stored === "light"
+        ? stored
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+
+    document.documentElement.setAttribute("data-theme", theme);
+    setIsDark(theme === "dark");
+    updateThemeColor(theme);
   }, []);
-
-  const updateThemeColor = (theme: "dark" | "light") => {
-    // Remove all existing theme-color metas
-    document.querySelectorAll('meta[name="theme-color"]').forEach((el) => el.remove());
-
-    // Insert a single unconditional one with the correct color
-    const meta = document.createElement("meta");
-    meta.name = "theme-color";
-    meta.content = theme === "dark" ? "#050507" : "#3676e4";
-    document.head.appendChild(meta);
-  };
 
   const toggle = () => {
     const next = isDark ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
     setIsDark(!isDark);
-    updateThemeColor(next); // ← instant update
+    updateThemeColor(next);
   };
 
   return (

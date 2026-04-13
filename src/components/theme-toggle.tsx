@@ -7,7 +7,7 @@ const updateThemeColor = (theme: "dark" | "light") => {
   document.querySelectorAll('meta[name="theme-color"]').forEach((el) => el.remove());
   const meta = document.createElement("meta");
   meta.name = "theme-color";
-  meta.content = theme === "dark" ? "#050507" : "#3676e4";
+meta.content = "#050507";
   document.head.appendChild(meta);
 };
 

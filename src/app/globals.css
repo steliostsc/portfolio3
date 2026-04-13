@@ -200,9 +200,12 @@ button {
   border-top-color: #3b82f6;
 }
 
-/* Top fade — same mechanism, opposite direction */
+/* ── Hero top fade ── */
 .hero-top-fade {
-  background: linear-gradient(to top, transparent 0%, var(--background) 100%);
+  background-color: var(--bg-page);
+  transition: background-color 0.4s ease;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 100%);
 }
 
 /* ── Hero bottom fade ── */

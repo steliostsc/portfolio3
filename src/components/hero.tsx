@@ -21,15 +21,13 @@ export default function Hero() {
 
   return (
     <section
-      className="relative h-[100dvh] min-h-[800px] flex items-center justify-center"
-  style={{
-    backgroundColor: "var(--bg-page)",
-    marginTop: "calc(-1 * env(safe-area-inset-top))",
-    paddingTop: "env(safe-area-inset-top)",
-    height: "calc(100dvh + env(safe-area-inset-top))",
-  }}
+      className="relative flex items-center justify-center"
+      style={{
+        backgroundColor: "var(--bg-page)",
+        height: "100dvh",
+        minHeight: "800px",
+      }}
     >
-
       {/* ── YouTube Video Background ── */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <iframe
@@ -47,10 +45,10 @@ export default function Hero() {
           }}
         />
 
-        {/* Dark tint — keeps text readable */}
+        {/* Dark tint */}
         <div className="absolute inset-0 bg-black/55" />
 
-        {/* Vignette — darkens edges for cinematic depth */}
+        {/* Vignette */}
         <div
           className="absolute inset-0"
           style={{
@@ -59,7 +57,7 @@ export default function Hero() {
           }}
         />
 
-        {/* Side fades — letterbox cinematic feel */}
+        {/* Side fades */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
       </div>
 
@@ -146,12 +144,11 @@ export default function Hero() {
         </button>
       </motion.div>
 
-      {/* ── Bottom fade — video dissolves into theme background ── */}
+      {/* ── Bottom fade ── */}
       <div
         className="hero-bottom-fade absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
         style={{ height: "50vh", marginBottom: "-2px" }}
       />
-
     </section>
   );
 }

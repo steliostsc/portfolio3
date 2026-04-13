@@ -201,17 +201,7 @@ button { color: #f8fafc; }
   mask-image: linear-gradient(to top, black 0%, black 20%, transparent 100%);
 }
 
-html::before {
-  content: "";
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: calc(env(safe-area-inset-top));
-  background-color: #050507;
-  z-index: 99;
-}
+
 
 .glass {
   background: rgba(15, 23, 42, 0.3);

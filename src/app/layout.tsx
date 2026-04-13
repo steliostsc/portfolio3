@@ -80,26 +80,31 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.png" />
-<meta name="theme-color" content="#050507" media="(prefers-color-scheme: dark)" />
-<meta name="theme-color" content="#050507" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#050507" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="mobile-web-app-capable" content="yes" />
 
-        {/* ── Blocking theme script — fires before first paint on ALL devices ── */}
+        {/* Blocking theme script — fires before first paint */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {
                   var stored = localStorage.getItem('theme');
+                  var theme;
                   if (stored === 'dark' || stored === 'light') {
-                    document.documentElement.setAttribute('data-theme', stored);
+                    theme = stored;
                   } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.setAttribute('data-theme', 'dark');
+                    theme = 'dark';
                   } else {
-                    document.documentElement.setAttribute('data-theme', 'light');
+                    theme = 'light';
+                  }
+                  document.documentElement.setAttribute('data-theme', theme);
+                  var meta = document.querySelector('meta[name="theme-color"]');
+                  if (meta) {
+                    meta.setAttribute('content', theme === 'dark' ? '#050507' : '#ffffff');
                   }
                 } catch(e) {}
               })();

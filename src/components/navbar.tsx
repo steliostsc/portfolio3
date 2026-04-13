@@ -81,7 +81,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="nav-pill"
-                      className="absolute inset-0 bg-white/10 rounded-full"
+                      className="absolute inset-0 bg-white/10 dark:bg-white/10 rounded-full"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -92,9 +92,9 @@ export default function Navbar() {
             })}
 
             {/* Theme toggle — desktop */}
-              <div className="ml-0.4"> {/* ← add this wrapper */}
-            <ThemeToggle />
-             </div>
+            <div className="ml-0.4">
+              <ThemeToggle />
+            </div>
           </div>
 
           {/* Mobile: theme toggle + hamburger */}
@@ -127,7 +127,7 @@ export default function Navbar() {
                     onClick={() => setIsOpen(false)}
                     className={`block px-4 py-3 rounded-xl text-base font-medium transition-all ${
                       pathname === item.href
-                        ? "text-white bg-blue-600/20 border border-blue-500/30"
+                        ? "text-white bg-white/10 dark:bg-white/8 border border-white/15"
                         : "text-gray-400 hover:text-white hover:bg-white/5"
                     }`}
                   >

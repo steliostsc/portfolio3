@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
+const DARK_COLOR = "#050507";
+const LIGHT_COLOR = "#ffffff";
+
 const updateThemeColor = (theme: "dark" | "light") => {
   document.querySelectorAll('meta[name="theme-color"]').forEach((el) => el.remove());
   const meta = document.createElement("meta");
   meta.name = "theme-color";
-meta.content = "#050507";
+  meta.content = theme === "dark" ? DARK_COLOR : LIGHT_COLOR;
   document.head.appendChild(meta);
 };
 

@@ -92,14 +92,14 @@ export default function Navbar() {
             })}
 
             {/* Theme toggle — desktop */}
-            <div className="ml-0.4">
-              <ThemeToggle />
-            </div>
+{/* <div className="ml-0.4">
+  <ThemeToggle />
+</div> */}
           </div>
 
           {/* Mobile: theme toggle + hamburger */}
           <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
+  {/* <ThemeToggle /> */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors"

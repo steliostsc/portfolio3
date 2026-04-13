@@ -45,8 +45,7 @@ export default function Navbar() {
           ${
             scrolled || isOpen
               ? "w-[95%] max-w-5xl rounded-3xl backdrop-blur-md bg-white/5 border border-white/10 shadow-lg"
-              : "w-full max-w-7xl bg-transparent border-transparent"
-          }
+: "w-full max-w-7xl border-transparent bg-[#050507]/80"          }
         `}
       >
         <div className="w-full flex items-center justify-between">

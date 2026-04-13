@@ -5,8 +5,6 @@ import { ArrowDown } from "lucide-react";
 import MagneticButton from "./magnetic-button";
 import { useLenis } from "lenis/react";
 
-// ── Match this to your exact site background blue ──
-
 export default function Hero() {
   const lenis = useLenis();
 
@@ -22,24 +20,34 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[100dvh] min-h-[800px] flex items-center justify-center overflow-hidden bg-background">
+
+      {/* ── Top fade — blends navbar area into background ── */}
+      <div
+        className="absolute top-0 left-0 right-0 z-[3] pointer-events-none"
+        style={{
+          height: "180px",
+          marginTop: "-2px",
+          background: "linear-gradient(to top, transparent 0%, var(--background) 100%)",
+        }}
+      />
 
       {/* ── YouTube Video Background ── */}
-<div className="absolute inset-0 z-0 overflow-hidden">
-  <iframe
-    src="https://www.youtube.com/embed/-WsR7YWjVj8?autoplay=1&mute=1&loop=1&playlist=-WsR7YWjVj8&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0"
-    title="Background video"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-    style={{
-      width: "calc(100vw + 200px)",
-      height: "calc(56.25vw + 200px)",
-      minWidth: "calc(177.78vh + 200px)",
-      minHeight: "calc(100vh + 200px)",
-    }}
-  />
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <iframe
+          src="https://www.youtube.com/embed/-WsR7YWjVj8?autoplay=1&mute=1&loop=1&playlist=-WsR7YWjVj8&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0"
+          title="Background video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={{
+            width: "calc(100vw + 200px)",
+            height: "calc(56.25vw + 200px)",
+            minWidth: "calc(177.78vh + 200px)",
+            minHeight: "calc(100dvh + 200px)",
+          }}
+        />
 
         {/* Dark tint — keeps text readable */}
         <div className="absolute inset-0 bg-black/55" />
@@ -56,7 +64,6 @@ export default function Hero() {
         {/* Side fades — letterbox cinematic feel */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
       </div>
-
 
       {/* ── Content ── */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
@@ -146,11 +153,11 @@ export default function Hero() {
       </motion.div>
 
       {/* ── Bottom fade — video dissolves into theme background ── */}
-<div
-  className="hero-bottom-fade absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
-  style={{ height: "50vh", marginBottom: "-2px", /* close the gap */}}
-  
-/>
+      <div
+        className="hero-bottom-fade absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
+        style={{ height: "50vh", marginBottom: "-2px" }}
+      />
+
     </section>
   );
 }

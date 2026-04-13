@@ -118,13 +118,23 @@ html, body {
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply text-foreground;
-    background-color: var(--bg-page);
+    background-color: var(--bg-page);  /* ← no !important */
     color: #f8fafc;
+  }
+}
+
+/* ── Remove top safe area — iOS 26 ── */
+@supports (padding-top: env(safe-area-inset-top)) {
+  html {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+  
+  body {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
   }
 }
 

@@ -33,11 +33,8 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      style={{
-        paddingTop: "env(safe-area-inset-top, 0px)",
-      }}
       className={`fixed top-0 left-0 right-0 z-[100] flex justify-center transition-all duration-300 ${
-        scrolled ? "pb-0" : "pb-0"
+        scrolled ? "pt-4 pb-0" : "pt-5 pb-0"
       }`}
     >
       <div
@@ -95,9 +92,9 @@ export default function Navbar() {
             })}
 
             {/* Theme toggle — desktop */}
-            <div className="ml-0.4">
-              <ThemeToggle />
-            </div>
+              <div className="ml-0.4"> {/* ← add this wrapper */}
+            <ThemeToggle />
+             </div>
           </div>
 
           {/* Mobile: theme toggle + hamburger */}

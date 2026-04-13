@@ -200,11 +200,18 @@ button { color: #f8fafc; }
   -webkit-mask-image: linear-gradient(to top, black 0%, black 20%, transparent 100%);
   mask-image: linear-gradient(to top, black 0%, black 20%, transparent 100%);
 }
-
-/* Force iOS status bar area to match your dark background */
-body {
+html::before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top);
   background-color: #050507;
+  z-index: 9999;
 }
+
 .glass {
   background: rgba(15, 23, 42, 0.3);
   backdrop-filter: blur(6px);

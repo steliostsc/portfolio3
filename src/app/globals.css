@@ -200,6 +200,7 @@ button { color: #f8fafc; }
   -webkit-mask-image: linear-gradient(to top, black 0%, black 20%, transparent 100%);
   mask-image: linear-gradient(to top, black 0%, black 20%, transparent 100%);
 }
+
 html::before {
   content: "";
   display: block;

@@ -16,6 +16,7 @@ const updateThemeColor = (theme: "dark" | "light") => {
 
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
@@ -29,6 +30,9 @@ export default function ThemeToggle() {
     document.documentElement.setAttribute("data-theme", theme);
     setIsDark(theme === "dark");
     updateThemeColor(theme);
+
+    const enabled = localStorage.getItem("dark_mode_button") !== "false";
+    setIsVisible(enabled);
   }, []);
 
   const toggle = () => {
@@ -38,6 +42,8 @@ export default function ThemeToggle() {
     setIsDark(!isDark);
     updateThemeColor(next);
   };
+
+  if (!isVisible) return null;
 
   return (
     <button

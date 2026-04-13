@@ -16,6 +16,7 @@ const DEFAULTS = {
   hero_cta_secondary_href: "/contact",
   hero_archive_button: "true",
   maintenance_mode: "false",
+  dark_mode_button: "true",
   announcement_enabled: "false",
   announcement_text: "🎉 Now booking for Summer 2026",
   custom_cursor: "true",
@@ -131,6 +132,7 @@ export default function SecretAdmin() {
 
   // Site
   const [maintenance, setMaintenance] = useState(false);
+  const [darkModeButton, setDarkModeButton] = useState(true);
   const [announcementEnabled, setAnnouncementEnabled] = useState(false);
   const [announcementText, setAnnouncementText] = useState(DEFAULTS.announcement_text);
   const [announcementTextInput, setAnnouncementTextInput] = useState(DEFAULTS.announcement_text);
@@ -153,6 +155,7 @@ export default function SecretAdmin() {
     if (g("hero_cta_secondary_href")) { setCtaHref(g("hero_cta_secondary_href")!); setCtaHrefInput(g("hero_cta_secondary_href")!); }
     if (g("hero_archive_button") !== null) setArchiveButton(g("hero_archive_button") === "true");
     if (g("maintenance_mode") !== null) setMaintenance(g("maintenance_mode") === "true");
+    if (g("dark_mode_button") !== null) setDarkModeButton(g("dark_mode_button") === "true");
     if (g("announcement_enabled") !== null) setAnnouncementEnabled(g("announcement_enabled") === "true");
     if (g("announcement_text")) { setAnnouncementText(g("announcement_text")!); setAnnouncementTextInput(g("announcement_text")!); }
     if (g("custom_cursor") !== null) setCustomCursor(g("custom_cursor") === "true");
@@ -211,6 +214,7 @@ export default function SecretAdmin() {
     setCtaHref(DEFAULTS.hero_cta_secondary_href); setCtaHrefInput(DEFAULTS.hero_cta_secondary_href);
     setArchiveButton(true);
     setMaintenance(false);
+    setDarkModeButton(true);
     setAnnouncementEnabled(false);
     setAnnouncementText(DEFAULTS.announcement_text); setAnnouncementTextInput(DEFAULTS.announcement_text);
     setCustomCursor(true);
@@ -236,6 +240,7 @@ export default function SecretAdmin() {
     { label: "Video", value: videoEnabled ? "On" : "Off", ok: videoEnabled },
     { label: "Badge", value: availableBadge ? "Visible" : "Hidden", ok: availableBadge },
     { label: "Archive Btn", value: archiveButton ? "Visible" : "Hidden", ok: archiveButton },
+    { label: "Dark Mode Btn", value: darkModeButton ? "Visible" : "Hidden", ok: darkModeButton },
     { label: "Announcement", value: announcementEnabled ? "On" : "Off", ok: announcementEnabled },
     { label: "Cursor", value: customCursor ? "On" : "Off", ok: customCursor },
     { label: "Maintenance", value: maintenance ? "On" : "Off", ok: !maintenance },
@@ -393,6 +398,15 @@ export default function SecretAdmin() {
         {/* ── Site Tab ── */}
         {activeTab === "site" && (
           <>
+            <Section title="Appearance">
+              <Toggle
+                label="Dark Mode Button"
+                description={darkModeButton ? "Theme toggle visible in navbar" : "Theme toggle hidden from navbar"}
+                enabled={darkModeButton}
+                onToggle={() => handleToggle("dark_mode_button", darkModeButton, setDarkModeButton)}
+              />
+            </Section>
+
             <Section title="Maintenance">
               <Toggle
                 label="Maintenance Mode"

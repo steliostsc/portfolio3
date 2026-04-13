@@ -208,7 +208,7 @@ html::before {
   top: 0;
   left: 0;
   right: 0;
-  height: calc(env(safe-area-inset-top) + 60px);
+  height: calc(env(safe-area-inset-top));
   background-color: #050507;
   z-index: 99;
 }

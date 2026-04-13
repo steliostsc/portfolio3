@@ -28,9 +28,9 @@ export default function Hero() {
 
   return (
     <section
-      className="relative flex items-center justify-center overflow-hidden isolate"
+      className="relative flex items-center justify-center"
       style={{
-        backgroundColor: "#050507",
+        backgroundColor: "var(--bg-page)",
         height: "100dvh",
         minHeight: "800px",
       }}
@@ -38,47 +38,36 @@ export default function Hero() {
       {/* ── YouTube Video Background ── */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         {videoEnabled && (
-          <>
-            <iframe
-              src="https://www.youtube.com/embed/-WsR7YWjVj8?autoplay=1&mute=1&loop=1&playlist=-WsR7YWjVj8&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0"
-              title="Background video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-              style={{
-                width: "calc(100vw + 200px)",
-                height: "calc(56.25vw + 200px)",
-                minWidth: "calc(177.78vh + 200px)",
-                minHeight: "calc(100dvh + 200px)",
-              }}
-            />
-
-            {/* Dark tint */}
-            <div className="absolute inset-0 bg-black/55" />
-
-            {/* Vignette */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.6) 100%)",
-              }}
-            />
-
-            {/* Side fades */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
-
-            {/* Top fade */}
-            <div
-              className="absolute top-0 left-0 right-0 z-[2] pointer-events-none"
-              style={{
-                height: "180px",
-                background: "linear-gradient(to bottom, #050507 0%, transparent 100%)",
-              }}
-            />
-          </>
+          <iframe
+            src="https://www.youtube.com/embed/-WsR7YWjVj8?autoplay=1&mute=1&loop=1&playlist=-WsR7YWjVj8&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0"
+            title="Background video"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            style={{
+              width: "calc(100vw + 200px)",
+              height: "calc(56.25vw + 200px)",
+              minWidth: "calc(177.78vh + 200px)",
+              minHeight: "calc(100dvh + 200px)",
+            }}
+          />
         )}
+
+        {/* Dark tint */}
+        <div className="absolute inset-0 bg-black/55" />
+
+        {/* Vignette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.6) 100%)",
+          }}
+        />
+
+        {/* Side fades */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
       </div>
 
       {/* ── Content ── */}
@@ -164,11 +153,13 @@ export default function Hero() {
         </button>
       </motion.div>
 
-      {/* ── Bottom fade ── */}
-      <div
+        <div
         className="hero-bottom-fade absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
         style={{ height: "50vh", marginBottom: "-2px" }}
       />
+
     </section>
   );
 }
+
+

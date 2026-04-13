@@ -17,11 +17,23 @@ export default function ThemeToggle() {
     }
   }, []);
 
+  const updateThemeColor = (theme: "dark" | "light") => {
+    // Remove all existing theme-color metas
+    document.querySelectorAll('meta[name="theme-color"]').forEach((el) => el.remove());
+
+    // Insert a single unconditional one with the correct color
+    const meta = document.createElement("meta");
+    meta.name = "theme-color";
+    meta.content = theme === "dark" ? "#050507" : "#3676e4";
+    document.head.appendChild(meta);
+  };
+
   const toggle = () => {
     const next = isDark ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
     setIsDark(!isDark);
+    updateThemeColor(next); // ← instant update
   };
 
   return (

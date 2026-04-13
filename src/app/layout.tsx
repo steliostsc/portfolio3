@@ -104,8 +104,7 @@ export default function RootLayout({
                   document.documentElement.setAttribute('data-theme', theme);
                   var meta = document.querySelector('meta[name="theme-color"]');
                   if (meta) {
-                    meta.setAttribute('content', theme === 'dark' ? '#050507' : '#ffffff');
-                  }
+meta.setAttribute('content', '#050507');                  }
                 } catch(e) {}
               })();
             `,

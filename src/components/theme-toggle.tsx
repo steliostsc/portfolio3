@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
 const DARK_COLOR = "#050507";
-const LIGHT_COLOR = "#ffffff";
+const LIGHT_COLOR = "#050507";
 
 const updateThemeColor = (theme: "dark" | "light") => {
   document.querySelectorAll('meta[name="theme-color"]').forEach((el) => el.remove());

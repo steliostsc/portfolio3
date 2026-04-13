@@ -200,13 +200,13 @@ button {
   border-top-color: #3b82f6;
 }
 
-/* ── Hero top fade ── */
+/* ── Hero top fade ── 
 .hero-top-fade {
   background-color: var(--bg-page);
   transition: background-color 0.4s ease;
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 100%);
-}
+}*/
 
 /* ── Hero bottom fade ── */
 .hero-bottom-fade {

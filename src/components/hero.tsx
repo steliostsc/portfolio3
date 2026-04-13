@@ -20,13 +20,10 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-[100dvh] min-h-[800px] flex items-center justify-center overflow-hidden bg-background">
-
-      {/* ── Top fade — mirrors bottom fade ── */}
-      <div
-        className="hero-top-fade absolute top-0 left-0 right-0 z-[3] pointer-events-none"
-        style={{ height: "180px", marginTop: "-2px" }}
-      />
+    <section
+      className="relative h-[100dvh] min-h-[800px] flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: "var(--bg-page)" }}
+    >
 
       {/* ── YouTube Video Background ── */}
       <div className="absolute inset-0 z-0 overflow-hidden">

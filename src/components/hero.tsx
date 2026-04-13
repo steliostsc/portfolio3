@@ -201,7 +201,7 @@ export default function Hero() {
       {/* ── Bottom fade ── */}
       <div
         className="hero-bottom-fade absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
-        style={{ height: "50vh", marginBottom: "-2px" }}
+        style={{ height: "50vh", marginBottom: "-4px" }}
       />
     </section>
   );

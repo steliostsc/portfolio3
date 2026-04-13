@@ -22,7 +22,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[100dvh] min-h-[800px] flex items-center justify-center overflow-hidden">
 
       {/* ── YouTube Video Background ── */}
 <div className="absolute inset-0 z-0 overflow-hidden">
@@ -37,7 +37,7 @@ export default function Hero() {
       width: "calc(100vw + 200px)",
       height: "calc(56.25vw + 200px)",
       minWidth: "calc(177.78vh + 200px)",
-      minHeight: "calc(100vh + 200px)",
+      minHeight: "calc(100dvh + 200px)",
     }}
   />
 
@@ -145,10 +145,14 @@ export default function Hero() {
         </button>
       </motion.div>
 
-      {/* ── Bottom fade — video dissolves into theme background ── */}
+      {/* Bottom fade — extend it slightly past the container */}
 <div
-  className="hero-bottom-fade absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
-  style={{ height: "50vh" }}
+  className="absolute bottom-0 left-0 right-0 pointer-events-none"
+  style={{
+    height: "120px",
+    background: "linear-gradient(to bottom, transparent 0%, var(--background) 100%)",
+    marginBottom: "-2px", /* close the gap */
+  }}
 />
 
     </section>

@@ -201,6 +201,10 @@ button { color: #f8fafc; }
   mask-image: linear-gradient(to top, black 0%, black 20%, transparent 100%);
 }
 
+/* Force iOS status bar area to match your dark background */
+body {
+  background-color: #050507;
+}
 .glass {
   background: rgba(15, 23, 42, 0.3);
   backdrop-filter: blur(6px);

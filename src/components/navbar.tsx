@@ -41,11 +41,11 @@ export default function Navbar() {
         className={`
           flex flex-col items-center
           px-6 sm:px-8 py-3
-          transition-all duration-500 ease-out
+          transition-all duration-500 ease-out border
           ${
             scrolled || isOpen
-              ? "w-[95%] max-w-5xl rounded-3xl backdrop-blur-md bg-black/40 border border-white/10 shadow-lg"
-              : "w-[95%] max-w-5xl bg-transparent border border-transparent"
+              ? "w-[95%] max-w-5xl rounded-3xl backdrop-blur-md bg-white/5 border border-white/10 shadow-lg"
+              : "w-full max-w-7xl bg-transparent border-transparent"
           }
         `}
       >
@@ -92,9 +92,9 @@ export default function Navbar() {
             })}
 
             {/* Theme toggle — desktop */}
-            <div className="ml-0.4">
-              <ThemeToggle />
-            </div>
+              <div className="ml-0.4"> {/* ← add this wrapper */}
+            <ThemeToggle />
+             </div>
           </div>
 
           {/* Mobile: theme toggle + hamburger */}

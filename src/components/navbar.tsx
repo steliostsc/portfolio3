@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Clapperboard } from "./ui/Clapperboard";
+import ThemeToggle from "@/components/theme-toggle";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -49,6 +50,7 @@ export default function Navbar() {
         `}
       >
         <div className="w-full flex items-center justify-between">
+          {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
             <Clapperboard />
             <span className="text-xl font-bold tracking-tight text-white group-hover:text-blue-200 transition-colors">
@@ -56,46 +58,48 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden md:block">
-            <div className="flex items-center space-x-1">
-              {navItems.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 group overflow-hidden"
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 group overflow-hidden"
+                >
+                  <span
+                    className={`relative z-10 ${
+                      isActive
+                        ? "text-white"
+                        : "text-gray-400 group-hover:text-white"
+                    }`}
                   >
-                    <span
-                      className={`relative z-10 ${
-                        isActive
-                          ? "text-white"
-                          : "text-gray-400 group-hover:text-white"
-                      }`}
-                    >
-                      {item.name}
-                    </span>
+                    {item.name}
+                  </span>
 
-                    {isActive && (
-                      <motion.div
-                        layoutId="nav-pill"
-                        className="absolute inset-0 bg-white/10 rounded-full"
-                        transition={{
-                          type: "spring",
-                          bounce: 0.2,
-                          duration: 0.6,
-                        }}
-                      />
-                    )}
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-pill"
+                      className="absolute inset-0 bg-white/10 rounded-full"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
 
-                    <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300" />
-                  </Link>
-                );
-              })}
-            </div>
+                  <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300" />
+                </Link>
+              );
+            })}
+
+            {/* Theme toggle — desktop */}
+              <div className="ml-0.4"> {/* ← add this wrapper */}
+            <ThemeToggle />
+             </div>
           </div>
 
-          <div className="md:hidden flex items-center">
+          {/* Mobile: theme toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors"
@@ -105,6 +109,7 @@ export default function Navbar() {
           </div>
         </div>
 
+        {/* Mobile menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div

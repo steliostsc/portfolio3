@@ -86,9 +86,9 @@ export default function ProfilePage() {
             <BentoGridItem
               title="Experience"
               header={
-                <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-emerald-500/20 via-emerald-600/10 to-black border border-white/10 flex flex-col items-center justify-center relative overflow-hidden group-hover:border-emerald-500/30 transition-colors py-8 md:py-0">
+                <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-emerald-300/60 via-emerald-950/40 to-black border border-white/10 flex flex-col items-center justify-center relative overflow-hidden group-hover:border-emerald-500/30 transition-colors py-8 md:py-0">
                   <div className="absolute inset-0 bg-emerald-500/5 blur-3xl rounded-full" />
-                  <span className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-emerald-400 to-emerald-900 z-10">150+</span>
+                  <span className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-emerald-400 to-emerald-900 z-10">350+</span>
                   <div className="text-emerald-500/50 text-xs font-mono uppercase tracking-[0.2em] z-10 mt-2">Projects Completed</div>
                 </div>
               }
@@ -107,14 +107,14 @@ export default function ProfilePage() {
             <BentoGridItem
               title="Available Remotely"
               header={
-                <div className="relative flex flex-1 w-full h-full min-h-[8rem] md:min-h-[6rem] rounded-xl bg-gradient-to-br from-blue-500/20 via-blue-600/10 to-black overflow-hidden flex items-center justify-center border border-white/5">
+                <div className="relative flex flex-1 w-full h-full min-h-[8rem] md:min-h-[6rem] rounded-xl bg-gradient-to-br from-blue-300/60 via-blue-600/10 to-black overflow-hidden flex items-center justify-center border border-white/5">
                   <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
 
                   <div className="relative z-10 flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center animate-pulse">
+                    <div className="w-16 h-16 rounded-full bg-blue-900/60 flex items-center justify-center animate-pulse">
                       <MapPin className="text-blue-500" size={32} />
                     </div>
-                    <div className="mt-2 bg-blue-500/20 backdrop-blur text-blue-300 px-3 py-1 rounded text-xs font-bold border border-blue-500/30">
+                    <div className="mt-2 bg-blue-900/60 backdrop-blur text-blue-300 px-3 py-1 rounded text-xs font-bold border border-blue-500/30">
                       WORLDWIDE
                     </div>
                   </div>
@@ -136,7 +136,7 @@ export default function ProfilePage() {
               title="My Vision"
               description=""
               header={
-                <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-yellow-500/20 via-yellow-600/10 to-black border border-white/5 p-6 flex items-center relative">
+                <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-yellow-300/60 via-yellow-600/10 to-black border border-white/5 p-6 flex items-center relative">
                   <Quote className="text-white/10 absolute top-4 right-4" size={48} />
                   <p className="text-gray-300 italic text-sm md:text-base leading-relaxed relative z-10 pl-12">
                     "I create visually engaging stories through precise edits, seamless transitions, and optimized audio. My work combines dynamic visual effects with a clear focus on audience engagement."
@@ -159,7 +159,7 @@ export default function ProfilePage() {
               title="Connect"
               description=""
               header={
-                <div className="flex flex-1 h-full w-full items-center justify-between px-16 bg-gradient-to-r from-purple-500/20 via-blue-500/10 to-black rounded-xl border border-white/5 py-4 md:py-0 min-h-[5rem]">
+                <div className="flex flex-1 h-full w-full items-center justify-between px-16 bg-gradient-to-r from-purple-300/60 via-blue-500/10 to-black rounded-xl border border-white/5 py-4 md:py-0 min-h-[5rem]">
                   <a href="mailto:s.tsekouras12@gmail.com" target="_blank" className="p-3 bg-white/5 rounded-full hover:bg-blue-600 hover:scale-110 transition-all duration-300 text-white"><Mail size={20} /></a>
                   <a href="https://wa.me/+306983763372" target="_blank" className="p-3 bg-white/5 rounded-full hover:bg-green-600 hover:scale-110 transition-all duration-300 text-white"><MessageCircle size={20} /></a>
                   <a href="https://www.linkedin.com/in/stsekouras/" target="_blank" className="p-3 bg-white/5 rounded-full hover:bg-[#0077b5] hover:scale-110 transition-all duration-300 text-white"><Linkedin size={20} /></a>

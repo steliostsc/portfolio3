@@ -1,24 +1,32 @@
+// src/app/archive/page.tsx
 "use client";
 
 import { fetchTikTokThumbnail } from "@/lib/helper";
 import ProjectCard from "@/components/ProjectCard";
-import Hero from "@/components/hero";
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Loader2, Filter, ArrowUpDown } from "lucide-react";
-import {
-  getVideoProjectsByCategory,
-  getVideoCategoriesWithCountIncludingAll,
-} from "@/lib/helper";
 import type { VideoProject } from "@/types/videos";
 import MouseMoveEffect from "@/components/mouse-move-effect";
-import Marquee from "@/components/ui/marquee";
-import { clientsData } from "@/db/clients";
-import Image from "next/image";
+import { archivedVideoProjects } from "@/db/archivedProjects";
 
-const categories = getVideoCategoriesWithCountIncludingAll();
+function getArchivedByCategory(category: string): VideoProject[] {
+  if (category === "All") return archivedVideoProjects;
+  return archivedVideoProjects.filter((p) => p.category.includes(category));
+}
+
+function getArchivedCategoriesWithCount() {
+  const counts: Record<string, number> = {};
+  archivedVideoProjects.forEach((p) =>
+    p.category.forEach((c) => { counts[c] = (counts[c] ?? 0) + 1; })
+  );
+  return [
+    { category: "All", count: archivedVideoProjects.length },
+    ...Object.entries(counts).map(([category, count]) => ({ category, count })),
+  ];
+}
 
 function parseDuration(duration?: string): number {
   if (!duration) return 0;
@@ -54,7 +62,9 @@ function sortProjects(projects: VideoProject[], sort: SortOption): VideoProject[
   });
 }
 
-export default function HomePage() {
+const categories = getArchivedCategoriesWithCount();
+
+export default function ArchivePage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState<SortOption>("default");
   const [sortOpen, setSortOpen] = useState(false);
@@ -68,10 +78,8 @@ export default function HomePage() {
 
   const ITEMS_PER_PAGE = 9;
 
-
-
   useEffect(() => {
-    const projects = sortProjects(getVideoProjectsByCategory(selectedCategory), sortBy);
+    const projects = sortProjects(getArchivedByCategory(selectedCategory), sortBy);
     setAllProjects(projects);
     setDisplayedProjects(projects.slice(0, ITEMS_PER_PAGE));
     setCurrentPage(1);
@@ -85,8 +93,7 @@ export default function HomePage() {
       const nextPage = currentPage + 1;
       const start = (nextPage - 1) * ITEMS_PER_PAGE;
       const end = start + ITEMS_PER_PAGE;
-      const newProjects = allProjects.slice(start, end);
-      setDisplayedProjects((prev) => [...prev, ...newProjects]);
+      setDisplayedProjects((prev) => [...prev, ...allProjects.slice(start, end)]);
       setCurrentPage(nextPage);
       setHasMore(end < allProjects.length);
       setLoading(false);
@@ -116,88 +123,33 @@ export default function HomePage() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <MouseMoveEffect />
-      <Hero />
 
-      {/* ── Trusted By Section ── */}
-      <section className="relative py-16 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-10"
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Trusted By</h2>
-            <div className="h-1 w-20 bg-blue-500 mx-auto rounded-full" />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background py-10"
-            style={{
-              maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-              WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-            }}
-          >
-            <Marquee className="[--duration:20s]">
-              {clientsData.map((client) => (
-                <div
-                  key={client.id}
-                  className="mx-8 flex flex-col items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer"
-                >
-                  <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-white/5 p-4 flex items-center justify-center shadow-sm hover:shadow-md hover:bg-white/10 transition-all">
-                    <Image src={client.logo} alt={client.name} fill className="object-contain" />
-                  </div>
-                  <p className="mt-3 text-xs font-medium text-gray-400 hover:text-gray-200 transition-colors text-center whitespace-nowrap">
-                    {client.name}
-                  </p>
-                </div>
-              ))}
-            </Marquee>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Projects Section ── */}
       <section id="projects" className="relative py-20 px-4 sm:px-6">
-        <div
-          className="absolute top-0 left-0 right-0 pointer-events-none z-10"
-          style={{
-            height: "80px",
-            background: "linear-gradient(to bottom, var(--background) 0%, transparent 100%)",
-          }}
-        />
-
         <div className="max-w-7xl mx-auto">
+
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center mb-16 relative"
+            className="text-center mb-16 relative pt-20"
           >
-            <h2 className="text-4xl md:text-6xl font-bold mt-0 md:mt-20 mb-3 text-white tracking-tight">
-              Featured{" "}
+            
+            <h1 className="text-4xl md:text-6xl font-bold mb-3 text-white tracking-tight">
+              The{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
-                Projects
+                Archive
               </span>
-            </h2>
-            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed mb-6">
-              I produce short-form video content with precise editing, fluid transitions, and refined audio.
+            </h1>
+            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+              Older work and early projects — not listed publicly.
             </p>
-
-           
           </motion.div>
 
           {/* Controls Row */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center justify-center gap-3 mb-8"
           >
@@ -234,10 +186,7 @@ export default function HomePage() {
                   {SORT_OPTIONS.map((option) => (
                     <button
                       key={option.value}
-                      onClick={() => {
-                        setSortBy(option.value);
-                        setSortOpen(false);
-                      }}
+                      onClick={() => { setSortBy(option.value); setSortOpen(false); }}
                       className={`
                         w-full text-left px-4 py-3 text-sm transition-colors duration-150 flex items-center gap-2
                         ${sortBy === option.value
@@ -258,7 +207,7 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Category Filter Buttons */}
+          {/* Category pills */}
           <motion.div
             initial={false}
             animate={{
@@ -266,11 +215,7 @@ export default function HomePage() {
               opacity: showCategories ? 1 : 0,
               marginBottom: showCategories ? 64 : 0,
             }}
-            transition={{
-              duration: 0.5,
-              ease: [0.4, 0, 0.2, 1],
-              opacity: { duration: 0.3 },
-            }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], opacity: { duration: 0.3 } }}
             style={{ overflow: "visible" }}
           >
             <div className="flex flex-wrap justify-center gap-3">
@@ -278,20 +223,15 @@ export default function HomePage() {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`
-                    relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300
+                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300
                     ${selectedCategory === category
                       ? "bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105"
                       : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5"
-                    }
-                  `}
+                    }`}
                 >
                   {category}
-                  <span
-                    className={`
-                      ml-2 text-[10px] px-1.5 py-0.5 rounded-full transition-colors
-                      ${selectedCategory === category ? "bg-black text-white" : "bg-white/10 text-gray-400"}
-                    `}
+                  <span className={`ml-2 text-[10px] px-1.5 py-0.5 rounded-full transition-colors
+                    ${selectedCategory === category ? "bg-black text-white" : "bg-white/10 text-gray-400"}`}
                   >
                     {count}
                   </span>
@@ -300,7 +240,7 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Projects Grid */}
+          {/* Grid */}
           <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {displayedProjects.map((project, index) => (
               <motion.div
@@ -319,13 +259,9 @@ export default function HomePage() {
             ))}
           </motion.div>
 
-          {/* Load More Button */}
+          {/* Load More */}
           {selectedCategory === "All" && hasMore && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center mt-20"
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center mt-20">
               <Button
                 onClick={loadMoreProjects}
                 disabled={loading}
@@ -333,15 +269,9 @@ export default function HomePage() {
                 className="bg-white text-black hover:bg-gray-200 rounded-full px-8 h-12 font-medium transition-all hover:scale-105"
               >
                 {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Loading...
-                  </>
+                  <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Loading...</>
                 ) : (
-                  <>
-                    Load More Projects
-                    <ArrowRight className="ml-2" size={16} />
-                  </>
+                  <>Load More Projects<ArrowRight className="ml-2" size={16} /></>
                 )}
               </Button>
             </motion.div>

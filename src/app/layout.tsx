@@ -1,50 +1,34 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Inter, Nunito } from "next/font/google";
-
-
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import MouseMoveEffect from "@/components/mouse-move-effect";
 import JumpToTop from "@/components/jump-to-top";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { ReactLenis } from "lenis/react";
 
-
 const inter = Inter({ subsets: ["latin"] });
-
 
 export const metadata: Metadata = {
   title: {
     default: "Stelios Tsekouras – Video Editing Services",
-    template: "%s | Niloy Bhowmick",
+    template: "%s | Stelios Tsekouras",
   },
-    themeColor: "#0c2d48",
   description:
-    "Turning raw footage into visual stories — with style, precision, and a touch of cinematic magic. Niloy Bhowmick specializes in DaVinci Resolve, Premiere Pro, and After Effects — delivering cinematic edits, motion graphics, and polished storytelling.",
+    "I am Stelios Tsekouras, a professional Video Editor specializing in Short Form content for social media, delivering polished, impactful videos across political, influencer, tourism, and brand projects.",
   keywords: [
-    "Niloy Bhowmick",
+    "Stelios Tsekouras",
     "Video Editor",
-    "Motion Graphics Designer",
-    "DaVinci Resolve",
-    "Premiere Pro",
-    "After Effects",
-    "Color Grading",
-    "YouTube Video Editing",
-    "Course Video Editing",
-    "Logo Animation",
-    "Visual Storytelling",
-    "Freelance Video Editor",
-    "Bangladesh Video Editor",
+    "Short Form Content",
+    "Social Media Video",
     "Cinematic Editing",
-    "Content Creator",
-    "Lower Thirds",
-    "Audio Sync",
+    "Freelance Video Editor",
+    "Greece Video Editor",
   ],
-  authors: [{ name: "Niloy Bhowmick", url: "https://www.itsniloy.me" }],
-  creator: "Niloy Bhowmick",
-  publisher: "Niloy Bhowmick",
+  authors: [{ name: "Stelios Tsekouras", url: "https://stsekouras.vercel.app" }],
+  creator: "Stelios Tsekouras",
+  publisher: "Stelios Tsekouras",
   robots: {
     index: true,
     follow: true,
@@ -80,15 +64,11 @@ export const metadata: Metadata = {
       "I produce short-form video content with precise editing, fluid transitions, and refined audio.",
     images: ["/steliostsekouras.png"],
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
   alternates: {
     canonical: "https://stsekouras.vercel.app",
   },
   category: "Video Editing Services",
 };
-
 
 export default function RootLayout({
   children,
@@ -96,16 +76,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/favicon.png" />
-  <meta name="theme-color" content="#3676e4 " />
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#3676e4 " />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="mobile-web-app-capable" content="yes" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+        <meta name="theme-color" content="#3676e4" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="mobile-web-app-capable" content="yes" />
 
+        {/* ── Blocking theme script — fires before first paint on ALL devices ── */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var stored = localStorage.getItem('theme');
+                  if (stored === 'dark' || stored === 'light') {
+                    document.documentElement.setAttribute('data-theme', stored);
+                  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                  } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
 
         <script
           type="application/ld+json"
@@ -113,45 +111,24 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              name: "Niloy Bhowmick",
-              url: "https://www.itsniloy.me",
-              image: "/niloybhowmick.png",
-              sameAs: [
-                "https://www.itsniloy.me",
-                "https://linkedin.com/in/niloybhowmick",
-                "https://youtube.com/@niloybhowmick",
-                "https://twitter.com/niloy_bhowmick",
-              ],
-              jobTitle: "Video Editor & Motion Graphics Designer",
+              name: "Stelios Tsekouras",
+              url: "https://stsekouras.vercel.app",
+              jobTitle: "Video Editor",
               knowsAbout: [
                 "Video Editing",
-                "Motion Graphics",
-                "DaVinci Resolve",
-                "Adobe Premiere Pro",
-                "Adobe After Effects",
-                "Color Grading",
-                "Audio Syncing",
+                "Short Form Content",
+                "Social Media Video",
+                "Cinematic Editing",
               ],
               worksFor: {
                 "@type": "Organization",
                 name: "Freelance",
-              },
-              alumniOf: {
-                "@type": "Organization",
-                name: "Green University of Bangladesh",
               },
             }),
           }}
         />
       </head>
       <body className={`${inter.className} min-h-screen text-white`}>
-        <div 
-          className="fixed inset-0 -z-10 animate-gradient"
-          style={{
-            background: "linear-gradient(180deg, #3676e4 0%, #3676e4 100%)",
-          }}
-        />
-        
         <ReactLenis root options={{ syncTouch: false }}>
           <div className="min-h-screen">
             <Navbar />

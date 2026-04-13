@@ -134,9 +134,9 @@ export const videoEditingSkills = [
 
 export const achievements = [
   {
-    title: "150+ Projects Completed",
+    title: "350+ Projects Completed",
     description:
-      "Delivered over 150 video projects across diverse industries.",
+      "Delivered over 350 video projects across diverse industries.",
     icon: Award,
     color: "text-yellow-400",
   },

@@ -39,6 +39,8 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
   const [showVideo, setShowVideo] = useState(false);
 
   const embedUrl = getYouTubeEmbedUrl(project.video_link);
+  const isTikTok = project.video_link.includes("tiktok.com");
+  const isYouTube = project.video_link.includes("youtube.com") || project.video_link.includes("youtu.be");
 
   return (
     <div className="min-h-screen pt-32 pb-20 px-4">
@@ -68,11 +70,12 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-8"
+          className={`mb-8 ${isTikTok ? "flex justify-center" : ""}`}
         >
-          <GlassmorphismCard className="p-4 md:p-6">
-            <div className="relative w-full rounded-lg overflow-hidden bg-gray-900">
-              {project.video_link.includes("youtube.com") || project.video_link.includes("youtu.be") ? (
+          {/* Video Section */}
+<GlassmorphismCard className={`overflow-hidden ${isTikTok ? "w-fit" : ""}`} hover={false}>
+            <div className="relative w-full" style={{ backgroundColor: "#000" }}>
+              {isYouTube ? (
                 showVideo ? (
                   <iframe
                     src={`${embedUrl}?autoplay=1`}
@@ -82,7 +85,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                     allow="autoplay; encrypted-media"
                   />
                 ) : (
-                  <div className="relative w-full aspect-video">
+                  <div className="relative w-full aspect-video group/thumb">
                     <Image
                       src={
                         project.cover_image
@@ -93,30 +96,23 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                      <Button
-                        onClick={() => setShowVideo(true)}
-                        size="lg"
-                        className="bg-red-600 hover:bg-red-700 cursor-pointer"
-                      >
-                        <Play className="mr-2" size={24} />
-                        Play Video
-                      </Button>
-                    </div>
+                    <div className="absolute inset-0 bg-black/20 group-hover/thumb:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+  <div
+    onClick={() => setShowVideo(true)}
+    className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 text-white transform scale-90 hover:scale-110 transition-all duration-300 shadow-xl shadow-black/20 cursor-pointer"
+  >
+    <Play className="ml-1 fill-white" size={28} />
+  </div>
+</div>
                   </div>
                 )
-              ) : project.video_link.includes("tiktok.com") ? (
-                <div className="relative w-full flex justify-center">
-                  <div className="rounded-xl overflow-hidden bg-blue-900/4 p-0 m-0">
-                    <div className="tiktok-wrapper rounded-xl overflow-hidden">
-                      <TikTokEmbed
-                        videoLink={project.video_link}
-                        width={322}
-                        height={620}
-                      />
-                    </div>
-                  </div>
-                </div>
+              ) : isTikTok ? (
+                /* ── TikTok — no extra padding, embed fills card exactly ── */
+                <TikTokEmbed
+                  videoLink={project.video_link}
+                  width={322}
+                  height={620}
+                />
               ) : (
                 <div className="bg-gray-800 h-48 flex items-center justify-center text-gray-400">
                   No preview available
@@ -146,7 +142,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-white">
                 {project.video_title}
               </h1>
-              <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+              <p className="text-gray-300 text-base md:text-lg leading-relaxed whitespace-pre-line">
                 {project.video_description}
               </p>
             </div>
@@ -161,14 +157,11 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                     <Calendar className="mr-2" size={14} />
                     <span>
                       Published:{" "}
-                      {new Date(project.publish_date).toLocaleDateString(
-                        "en-US",
-                        {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        }
-                      )}
+                      {new Date(project.publish_date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
                     </span>
                   </div>
                   <div className="flex items-center text-gray-400">
@@ -185,11 +178,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.software_used.map((software) => (
-                      <Badge
-                        key={software}
-                        variant="outline"
-                        className="border-gray-600 text-gray-300 rounded-full"
-                      >
+                      <Badge key={software} variant="outline" className="border-gray-600 text-gray-300 rounded-full">
                         {software}
                       </Badge>
                     ))}
@@ -204,11 +193,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.category.map((category) => (
-                  <Badge
-                    key={category}
-                    variant="outline"
-                    className="border-gray-600 text-gray-300 rounded-full"
-                  >
+                  <Badge key={category} variant="outline" className="border-gray-600 text-gray-300 rounded-full">
                     {category}
                   </Badge>
                 ))}
@@ -217,13 +202,9 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild className="bg-red-600 hover:bg-red-700 rounded-full">
-                <a
-                  href={project.video_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={project.video_link} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="mr-2" size={16} />
-                  {project.video_link.includes("tiktok.com")
+                  {isTikTok
                     ? "Watch on TikTok"
                     : project.video_link.includes("instagram.com")
                     ? "Watch on Instagram"
@@ -298,10 +279,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
                   </div>
                 </div>
                 <div className="relative">
-                  <Quote
-                    className="absolute -top-4 -left-4 text-blue-400 opacity-50"
-                    size={32}
-                  />
+                  <Quote className="absolute -top-4 -left-4 text-blue-400 opacity-50" size={32} />
                   <blockquote className="text-gray-300 italic text-lg text-center leading-relaxed pl-8">
                     "{project.client_feedback}"
                   </blockquote>
@@ -310,6 +288,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             </GlassmorphismCard>
           </motion.div>
         )}
+
       </div>
     </div>
   );

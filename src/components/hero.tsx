@@ -22,14 +22,10 @@ export default function Hero() {
   return (
     <section className="relative h-[100dvh] min-h-[800px] flex items-center justify-center overflow-hidden bg-background">
 
-      {/* ── Top fade — blends navbar area into background ── */}
+      {/* ── Top fade — mirrors bottom fade ── */}
       <div
-        className="absolute top-0 left-0 right-0 z-[3] pointer-events-none"
-        style={{
-          height: "180px",
-          marginTop: "-2px",
-          background: "linear-gradient(to top, transparent 0%, var(--background) 100%)",
-        }}
+        className="hero-top-fade absolute top-0 left-0 right-0 z-[3] pointer-events-none"
+        style={{ height: "180px", marginTop: "-2px" }}
       />
 
       {/* ── YouTube Video Background ── */}
@@ -67,7 +63,6 @@ export default function Hero() {
 
       {/* ── Content ── */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-        {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,7 +74,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Main Title */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8 leading-[0.9]">
           <motion.span
             initial={{ opacity: 0, y: 50, rotate: 2 }}
@@ -99,7 +93,6 @@ export default function Hero() {
           </motion.span>
         </h1>
 
-        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -109,7 +102,6 @@ export default function Hero() {
           Where <span className="text-white font-medium">creativity</span> meets precision in every frame.
         </motion.p>
 
-        {/* Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

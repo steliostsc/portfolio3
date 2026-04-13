@@ -208,9 +208,9 @@ html::before {
   top: 0;
   left: 0;
   right: 0;
-  height: env(safe-area-inset-top);
+  height: calc(env(safe-area-inset-top) + 60px);
   background-color: #050507;
-  z-index: 9999;
+  z-index: 99;
 }
 
 .glass {

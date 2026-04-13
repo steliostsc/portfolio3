@@ -21,11 +21,12 @@ export default function Hero() {
 
   return (
     <section
-      className="relative h-[100dvh] min-h-[800px] flex items-center justify-center overflow-hidden"
+      className="relative h-[100dvh] min-h-[800px] flex items-center justify-center"
   style={{
     backgroundColor: "var(--bg-page)",
     marginTop: "calc(-1 * env(safe-area-inset-top))",
     paddingTop: "env(safe-area-inset-top)",
+    height: "calc(100dvh + env(safe-area-inset-top))",
   }}
     >
 
